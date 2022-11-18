@@ -8,13 +8,14 @@ function RemoveParenthesesAndReverseInside(str) {
     let lastAry = strAry.splice(right - left + 1);
 
     let removeAry = strAry.filter((char) => char !== "(" && char !== ")");
-    // let parenthesesAry = removeAry.slice(left, right);
 
     let newAry = firstAry.concat(removeAry.reverse()).concat(lastAry).join("");
-    return newAry;
+    return `${str} => ${newAry}`;
   } else {
     return "Invalid Format";
   }
 }
-
+console.log(RemoveParenthesesAndReverseInside("foo(bar)"));
+console.log(RemoveParenthesesAndReverseInside("(bar)"));
 console.log(RemoveParenthesesAndReverseInside("foo(foo(bar))blim"));
+console.log(RemoveParenthesesAndReverseInside("helloworld"));
