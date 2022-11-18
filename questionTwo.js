@@ -1,21 +1,46 @@
-function RemoveParenthesesAndReverseInside(str) {
-  let strAry = str.split("");
+function RemoveParenthesesAndReverseInside2(str) {
+  let left = str.indexOf("(");
+  let right = str.lastIndexOf(")");
 
-  if (strAry.includes("(") && strAry.includes(")")) {
-    let left = strAry.indexOf("(");
-    let right = strAry.lastIndexOf(")");
-    let firstAry = strAry.splice(0, left);
-    let lastAry = strAry.splice(right - left + 1);
+  let firstAry = str.substr(0, left);
+  let second = str.substr(right + 1, str.length);
 
-    let removeAry = strAry.filter((char) => char !== "(" && char !== ")");
+  let between = str.substr(left + 1, right - left - 1);
 
-    let newAry = firstAry.concat(removeAry.reverse()).concat(lastAry).join("");
-    return `${str} => ${newAry}`;
-  } else {
-    return "Invalid Format";
+  if (between.includes("(") && between.includes(")")) {
+    return `${str} => ${firstAry.concat(checkInner(between)).concat(second)}`;
   }
+
+  return `${str} => ${firstAry
+    .concat(between.split("").reverse().join(""))
+    .concat(second)}`;
 }
-console.log(RemoveParenthesesAndReverseInside("foo(bar)"));
-console.log(RemoveParenthesesAndReverseInside("(bar)"));
-console.log(RemoveParenthesesAndReverseInside("foo(foo(bar))blim"));
-console.log(RemoveParenthesesAndReverseInside("helloworld"));
+
+function checkInner(between) {
+  if (between.includes("(") && between.includes(")")) {
+    let leftChild = between.indexOf("(");
+    let rightChild = between.lastIndexOf(")");
+
+    let leftChildValue = between.substr(0, leftChild);
+    let RightChildValue = between.substr(rightChild + 1, between.length);
+    let middleChildValue = between.substr(
+      leftChild + 1,
+      rightChild - leftChild - 1
+    );
+
+    let result = RightChildValue.split("")
+      .reverse()
+      .join("")
+      .concat(checkInner(middleChildValue))
+      .concat(leftChildValue.split("").reverse().join(""));
+
+    return result;
+  }
+
+  return between;
+}
+console.log(RemoveParenthesesAndReverseInside2("foo(bar)"));
+console.log(RemoveParenthesesAndReverseInside2("(bar)"));
+console.log(RemoveParenthesesAndReverseInside2("foo(bar)blim"));
+console.log(RemoveParenthesesAndReverseInside2("foo(foo(bar(test)))blim"));
+console.log(RemoveParenthesesAndReverseInside2("helloworld"));
