@@ -7,13 +7,7 @@ function RemoveParenthesesAndReverseInside2(str) {
 
   let between = str.substr(left + 1, right - left - 1);
 
-  if (between.includes("(") && between.includes(")")) {
-    return `${str} => ${firstAry.concat(checkInner(between)).concat(second)}`;
-  }
-
-  return `${str} => ${firstAry
-    .concat(between.split("").reverse().join(""))
-    .concat(second)}`;
+  return `${str} => ${firstAry.concat(checkInner(between)).concat(second)}`;
 }
 
 function checkInner(between) {
@@ -42,5 +36,5 @@ function checkInner(between) {
 console.log(RemoveParenthesesAndReverseInside2("foo(bar)"));
 console.log(RemoveParenthesesAndReverseInside2("(bar)"));
 console.log(RemoveParenthesesAndReverseInside2("foo(bar)blim"));
-console.log(RemoveParenthesesAndReverseInside2("foo(foo(bar(test)))blim"));
+console.log(RemoveParenthesesAndReverseInside2("foo(foo(bar))blim"));
 console.log(RemoveParenthesesAndReverseInside2("helloworld"));
