@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "1":"node questionOne.js",
+    "2":"node questionTwo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
